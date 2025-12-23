@@ -1,4 +1,4 @@
-package com.study.library;
+package com.study.user;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
