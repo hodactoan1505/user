@@ -1,0 +1,18 @@
+services:
+  postgres_db:
+    image: postgres:16
+    restart: always
+    container_name: user_container_db
+    environment:
+      # These are the required Postgres variables
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user
+      POSTGRES_DB: user_db
+    ports:
+      - "55432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database:/docker-entrypoint-initdb.d
+volumes:
+  postgres_data:
+    driver: local
