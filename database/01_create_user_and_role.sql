@@ -3,11 +3,18 @@
 -- =========================
 CREATE TABLE users (
    id BIGSERIAL PRIMARY KEY,
+
    username VARCHAR(100) NOT NULL,
    password VARCHAR(255) NOT NULL,
 
    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   created_by VARCHAR(100) NULL,
+
    updated_at TIMESTAMP NULL,
+   updated_by VARCHAR(100) NULL,
+
+   del_flg BOOLEAN NULL DEFAULT FALSE,
+   deleted_at TIMESTAMP NULL,
 
    CONSTRAINT uk_users_username UNIQUE (username)
 );
@@ -16,13 +23,21 @@ CREATE TABLE users (
 -- TABLE: roles
 -- =========================
 CREATE TABLE roles (
-   id BIGSERIAL PRIMARY KEY,
-   code VARCHAR(50) NOT NULL,
-   name VARCHAR(100) NOT NULL,
+    id BIGSERIAL PRIMARY KEY,
 
-   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    code VARCHAR(50) NOT NULL,
+    name VARCHAR(100) NOT NULL,
 
-   CONSTRAINT uk_roles_code UNIQUE (code)
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by VARCHAR(100) NULL,
+
+    updated_at TIMESTAMP NULL,
+    updated_by VARCHAR(100) NULL,
+
+    del_flg BOOLEAN NULL DEFAULT FALSE,
+    deleted_at TIMESTAMP NULL,
+
+    CONSTRAINT uk_roles_code UNIQUE (code)
 );
 
 -- =========================
