@@ -1,3 +1,14 @@
 spring:
   application:
     name: user
+  datasource:
+    url: jdbc:postgresql://localhost:55432/user_db
+    username: user
+    password: user
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
