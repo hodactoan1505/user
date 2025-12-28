@@ -38,4 +38,5 @@ public class UserRoleEntity {
         this.id = new UserRoleId(userEntity.getId(), roleEntity.getId());
         this.assignedAt = Instant.now();
     }
+
 }

@@ -3,18 +3,22 @@ package com.study.user.model.base;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.Instant;
 
 @MappedSuperclass
 @Getter
 public class BaseEntity {
+    @CreatedDate
     @Column(name = "created_at", updatable = false)
     protected Instant createdAt;
 
     @Column(name = "created_by", updatable = false)
     protected String createdBy;
 
+    @LastModifiedDate
     @Column(name = "updated_at")
     protected Instant updatedAt;
 

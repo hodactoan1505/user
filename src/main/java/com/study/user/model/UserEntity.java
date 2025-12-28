@@ -1,12 +1,14 @@
 package com.study.user.model;
 
 import com.study.user.model.base.BaseEntity;
+import com.study.user.util.PasswordUtil;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,5 +39,14 @@ public class UserEntity extends BaseEntity {
     public UserEntity(final String username, final String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public void changePassword(final String password) {
+        this.password = PasswordUtil.encode(password);
+    }
+
+    public void inactive() {
+        this.delFlg = true;
+        this.deletedAt = Instant.now();
     }
 }
