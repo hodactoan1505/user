@@ -6,22 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.List;
-
 @Getter
 @AllArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserDetailDto {
-    @JsonProperty("id")
-    private Long id;
+public class RoleDto {
+    @JsonProperty("code")
+    private String code;
 
-    @JsonProperty("username")
-    private String username;
-
-    @JsonProperty("isActive")
-    private boolean active;
-
-    @JsonProperty("roleDtoList")
-    private List<RoleDto> roleDtoList;
+    @JsonProperty("name")
+    private String name;
 }

@@ -9,8 +9,6 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserCreateDto {
-    private String username;
-    private String password;
+public class ChangeRoleDto {
     private List<String> roleList;
 }

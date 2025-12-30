@@ -2,6 +2,7 @@ package com.study.user.controller;
 
 import com.study.user.common.reponse.ResponseNormal;
 import com.study.user.dto.ChangePasswordDto;
+import com.study.user.dto.ChangeRoleDto;
 import com.study.user.dto.UserCreateDto;
 import com.study.user.dto.UserDetailDto;
 import com.study.user.service.UserService;
@@ -27,7 +28,7 @@ public class UserController {
         );
     }
 
-    @PutMapping("/{userId}/change-password/")
+    @PostMapping("/{userId}/change-password/")
     public ResponseEntity<ResponseNormal<Void>> changePassword(
         @PathVariable final Long userId,
         @RequestBody final ChangePasswordDto changePasswordDto
@@ -35,6 +36,17 @@ public class UserController {
         userService.changePassword(userId, changePasswordDto);
         return ResponseEntity.ok().body(
             ResponseNormal.createResponse("Password changed is success")
+        );
+    }
+
+    @PostMapping("/{userId}/change-roles")
+    public ResponseEntity<ResponseNormal<Void>> changeRoles(
+        @PathVariable final Long userId,
+        @RequestBody final ChangeRoleDto changeRoleDto
+    ) throws Exception {
+        userService.changeRoles(userId, changeRoleDto);
+        return ResponseEntity.ok().body(
+            ResponseNormal.createResponse("Changed role is success")
         );
     }
 

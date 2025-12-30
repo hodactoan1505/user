@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(exception = Exception.class)
-    public ResponseEntity<ResponseError> exceptionHandler() {
+    public ResponseEntity<ResponseError> exceptionHandler(final Exception e) {
         return ResponseEntity.internalServerError().body(
             ResponseError.builder()
                 // TODO: Add enum

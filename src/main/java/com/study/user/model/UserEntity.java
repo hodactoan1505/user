@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -41,6 +42,18 @@ public class UserEntity extends BaseEntity {
         this.password = password;
     }
 
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserEntity that)) return false;
+        return id != null && id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
     public void changePassword(final String password) {
         this.password = PasswordUtil.encode(password);
     }
@@ -48,5 +61,25 @@ public class UserEntity extends BaseEntity {
     public void inactive() {
         this.delFlg = true;
         this.deletedAt = Instant.now();
+    }
+
+    public void assignRole(final RoleEntity role) {
+        boolean exists = userRoleEntitySet.stream()
+            .anyMatch(ur -> Objects.equals(ur.getRoleEntity().getId(), role.getId()));
+
+        if (exists) {
+            return;
+        }
+
+        final UserRoleEntity userRole = UserRoleEntity.builder()
+            .user(this)
+            .role(role)
+            .build();
+
+        userRoleEntitySet.add(userRole);
+    }
+
+    public void clearRoles() {
+        this.userRoleEntitySet.clear();
     }
 }

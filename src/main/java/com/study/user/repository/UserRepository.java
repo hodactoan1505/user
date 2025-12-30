@@ -16,9 +16,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
             SELECT COUNT(u) > 0
             FROM UserEntity u
             WHERE u.username = :username
-              AND u.delFlg = false
         """)
-    boolean existsActiveUsername(@Param("username") final String username);
+    boolean checkExistsUsername(@Param("username") final String username);
 
     @Query("""
         SELECT
