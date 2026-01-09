@@ -37,21 +37,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createUser(final UserCreateRequest userCreateRequest) throws Exception {
-        final String username = userCreateRequest.getUsername();
+        final String username = userCreateRequest.username();
         boolean isExistUsername = userRepository.checkExistsUsername(username);
 
         if (isExistUsername) {
             throw new BusinessException(ErrorCode.USER_EXISTED);
         }
 
-        final List<RoleEntity> roleEntityList = roleRepository.findByCodeIn(userCreateRequest.getRoleList());
-        if (userCreateRequest.getRoleList().size() != roleEntityList.size()) {
+        final List<RoleEntity> roleEntityList = roleRepository.findByCodeIn(userCreateRequest.roleList());
+        if (userCreateRequest.roleList().size() != roleEntityList.size()) {
             throw new BusinessException(ErrorCode.DATA_NOT_FOUND);
         }
 
         final UserEntity userEntity = UserEntity.builder()
-            .username(userCreateRequest.getUsername())
-            .password(securityService.encode(userCreateRequest.getPassword()))
+            .username(userCreateRequest.username())
+            .password(securityService.encode(userCreateRequest.password()))
             .build();
 
         userRepository.save(userEntity);
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
         final UserEntity userEntity = userRepository.findById(userId)
             .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
 
-        userEntity.changePassword(securityService.encode(changePasswordRequest.getNewPassword()));
+        userEntity.changePassword(securityService.encode(changePasswordRequest.newPassword()));
     }
 
     @Override
@@ -71,8 +71,8 @@ public class UserServiceImpl implements UserService {
         final UserEntity userEntity = userRepository.findById(userId)
             .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
 
-        final List<RoleEntity> roleEntityList = roleRepository.findByCodeIn(changeRoleRequest.getRoleList());
-        if (changeRoleRequest.getRoleList().size() != roleEntityList.size()) {
+        final List<RoleEntity> roleEntityList = roleRepository.findByCodeIn(changeRoleRequest.roleList());
+        if (changeRoleRequest.roleList().size() != roleEntityList.size()) {
             throw new BusinessException(ErrorCode.DATA_NOT_FOUND);
         }
 
