@@ -1,10 +1,10 @@
 package com.study.user.controller;
 
 import com.study.user.common.reponse.ResponseNormal;
-import com.study.user.dto.ChangePasswordDto;
-import com.study.user.dto.ChangeRoleDto;
-import com.study.user.dto.UserCreateDto;
-import com.study.user.dto.UserDetailDto;
+import com.study.user.controller.model.request.ChangePasswordRequest;
+import com.study.user.controller.model.request.ChangeRoleRequest;
+import com.study.user.controller.model.request.UserCreateRequest;
+import com.study.user.controller.model.response.UserDetailResponse;
 import com.study.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,12 +17,13 @@ import java.util.List;
 @RequestMapping("/users")
 @AllArgsConstructor
 public class UserController {
-    // TODO: add role
     private final UserService userService;
 
     @PostMapping("/")
-    public ResponseEntity<ResponseNormal<Void>> create(@RequestBody final UserCreateDto userCreateDto) throws Exception {
-        userService.createUser(userCreateDto);
+    public ResponseEntity<ResponseNormal<Void>> create(
+        @RequestBody final UserCreateRequest userCreateRequest
+    ) throws Exception {
+        userService.createUser(userCreateRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(
             ResponseNormal.createResponse("User created is success")
         );
@@ -31,9 +32,9 @@ public class UserController {
     @PostMapping("/{userId}/change-password/")
     public ResponseEntity<ResponseNormal<Void>> changePassword(
         @PathVariable final Long userId,
-        @RequestBody final ChangePasswordDto changePasswordDto
+        @RequestBody final ChangePasswordRequest changePasswordRequest
     ) throws Exception {
-        userService.changePassword(userId, changePasswordDto);
+        userService.changePassword(userId, changePasswordRequest);
         return ResponseEntity.ok().body(
             ResponseNormal.createResponse("Password changed is success")
         );
@@ -42,9 +43,9 @@ public class UserController {
     @PostMapping("/{userId}/change-roles")
     public ResponseEntity<ResponseNormal<Void>> changeRoles(
         @PathVariable final Long userId,
-        @RequestBody final ChangeRoleDto changeRoleDto
+        @RequestBody final ChangeRoleRequest changeRoleRequest
     ) throws Exception {
-        userService.changeRoles(userId, changeRoleDto);
+        userService.changeRoles(userId, changeRoleRequest);
         return ResponseEntity.ok().body(
             ResponseNormal.createResponse("Changed role is success")
         );
@@ -59,18 +60,18 @@ public class UserController {
     }
 
     @GetMapping("/fetch-users/")
-    public ResponseEntity<ResponseNormal<List<UserDetailDto>>> fetchUserList() {
-        final List<UserDetailDto> userDetailDtoList = userService.fetchAllUsers();
+    public ResponseEntity<ResponseNormal<List<UserDetailResponse>>> fetchUserList() {
+        final List<UserDetailResponse> userDetailResponseList = userService.fetchAllUsers();
         return ResponseEntity.ok().body(
-            ResponseNormal.createResponse(userDetailDtoList, "Fetch user is success")
+            ResponseNormal.createResponse(userDetailResponseList, "Fetch user is success")
         );
     }
 
     @GetMapping("/{userId}/detail/")
-    public ResponseEntity<ResponseNormal<UserDetailDto>> detailUser(@PathVariable final Long userId) {
-        final UserDetailDto userDetailDto = userService.fetchUser(userId);
+    public ResponseEntity<ResponseNormal<UserDetailResponse>> detailUser(@PathVariable final Long userId) {
+        final UserDetailResponse userDetailResponse = userService.fetchUser(userId);
         return ResponseEntity.ok().body(
-            ResponseNormal.createResponse(userDetailDto, "Fetch user is success")
+            ResponseNormal.createResponse(userDetailResponse, "Fetch user is success")
         );
     }
 }

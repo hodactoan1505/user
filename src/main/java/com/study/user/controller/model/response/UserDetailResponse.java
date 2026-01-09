@@ -1,7 +1,8 @@
-package com.study.user.dto;
+package com.study.user.controller.model.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.study.user.controller.model.response.part.RolePart;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserDetailDto {
+public class UserDetailResponse {
     @JsonProperty("id")
     private Long id;
 
@@ -23,5 +24,5 @@ public class UserDetailDto {
     private boolean active;
 
     @JsonProperty("roleDtoList")
-    private List<RoleDto> roleDtoList;
+    private List<RolePart> rolePartList;
 }

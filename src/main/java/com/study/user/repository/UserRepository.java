@@ -2,6 +2,7 @@ package com.study.user.repository;
 
 import com.study.user.model.UserEntity;
 import com.study.user.model.view.UserDetailView;
+import com.study.user.model.view.UserLoginView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -37,4 +38,13 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
         WHERE u.id = :userId
         """)
     Optional<UserDetailView> fetchUser(@Param("userId") final Long userId);
+
+    @Query("""
+        SELECT
+              u.username AS username,
+              u.password AS password
+        FROM UserEntity u
+        WHERE u.username = :username
+        """)
+    Optional<UserLoginView> fetchUserByUsername(@Param("username") final String username);
 }

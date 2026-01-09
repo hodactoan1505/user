@@ -1,7 +1,14 @@
 package com.study.user.common.exception;
 
+import com.study.user.enums.ErrorCode;
+import lombok.Getter;
+
+@Getter
 public class BusinessException extends RuntimeException {
-    public BusinessException(final String message, final Object... args) {
-        super(String.format(message, args));
+    private final ErrorCode errorCode;
+
+    public BusinessException(final ErrorCode errorCode) {
+        super(errorCode.getMessage());
+        this.errorCode = errorCode;
     }
 }

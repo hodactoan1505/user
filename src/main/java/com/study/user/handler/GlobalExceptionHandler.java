@@ -2,27 +2,33 @@ package com.study.user.handler;
 
 import com.study.user.common.exception.BusinessException;
 import com.study.user.common.reponse.ResponseError;
+import com.study.user.enums.ErrorCode;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(exception = BusinessException.class)
     public ResponseEntity<ResponseError> businessHandler(final BusinessException e) {
+        log.error(e.getMessage());
         return ResponseEntity.badRequest().body(
             ResponseError.builder()
-                .message(e.getMessage())
+                .code(e.getErrorCode().getCode())
+                .message(e.getErrorCode().getMessage())
                 .build());
     }
 
     @ExceptionHandler(exception = Exception.class)
     public ResponseEntity<ResponseError> exceptionHandler(final Exception e) {
+        log.error(e.getMessage());
         return ResponseEntity.internalServerError().body(
             ResponseError.builder()
-                // TODO: Add enum
-                .message("System error")
+                .code(ErrorCode.UNCATEGORIZED_EXCEPTION.getCode())
+                .message(ErrorCode.UNCATEGORIZED_EXCEPTION.getMessage())
                 .build());
     }
 }

@@ -1,22 +1,22 @@
 package com.study.user.service;
 
-import com.study.user.dto.ChangePasswordDto;
-import com.study.user.dto.ChangeRoleDto;
-import com.study.user.dto.UserCreateDto;
-import com.study.user.dto.UserDetailDto;
+import com.study.user.controller.model.request.ChangePasswordRequest;
+import com.study.user.controller.model.request.ChangeRoleRequest;
+import com.study.user.controller.model.request.UserCreateRequest;
+import com.study.user.controller.model.response.UserDetailResponse;
 
 import java.util.List;
 
 public interface UserService {
-    void createUser(final UserCreateDto userCreateDto) throws Exception;
+    void createUser(final UserCreateRequest userCreateRequest) throws Exception;
 
-    void changePassword(final Long userId, final ChangePasswordDto changePasswordDto) throws Exception;
+    void changePassword(final Long userId, final ChangePasswordRequest changePasswordRequest) throws Exception;
 
-    void changeRoles(final Long userId, final ChangeRoleDto changeRoleDto) throws Exception;
+    void changeRoles(final Long userId, final ChangeRoleRequest changeRoleRequest) throws Exception;
 
     void inactive(final Long userId) throws Exception;
 
-    List<UserDetailDto> fetchAllUsers();
+    List<UserDetailResponse> fetchAllUsers();
 
-    UserDetailDto fetchUser(final Long userId);
+    UserDetailResponse fetchUser(final Long userId);
 }

@@ -1,7 +1,6 @@
 package com.study.user.model;
 
 import com.study.user.model.base.BaseEntity;
-import com.study.user.util.PasswordUtil;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -55,7 +54,7 @@ public class UserEntity extends BaseEntity {
     }
 
     public void changePassword(final String password) {
-        this.password = PasswordUtil.encode(password);
+        this.password = password;
     }
 
     public void inactive() {

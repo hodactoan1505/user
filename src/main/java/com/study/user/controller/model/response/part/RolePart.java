@@ -1,4 +1,4 @@
-package com.study.user.dto;
+package com.study.user.controller.model.response.part;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +10,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RoleDto {
+public class RolePart {
     @JsonProperty("code")
     private String code;
 

@@ -10,6 +10,7 @@ public class BeanConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        int strengthLength = 12;
+        return new BCryptPasswordEncoder(strengthLength);
     }
 }
